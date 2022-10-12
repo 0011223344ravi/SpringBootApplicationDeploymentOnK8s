@@ -1,0 +1,305 @@
+Microsoft Windows [Version 10.0.22000.978]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\00112>minikube version
+minikube version: v1.26.0
+commit: f4b412861bb746be73053c9f6d2895f12cf78565
+
+C:\Users\00112>minikube status
+minikube
+type: Control Plane
+host: Stopped
+kubelet: Stopped
+apiserver: Stopped
+kubeconfig: Stopped
+
+
+C:\Users\00112>minikube start --driver=docker
+* minikube v1.26.0 on Microsoft Windows 11 Home Single Language 10.0.22000 Build 22000
+* minikube 1.27.1 is available! Download it: https://github.com/kubernetes/minikube/releases/tag/v1.27.1
+* To disable this notice, run: 'minikube config set WantUpdateNotification false'
+
+* Using the docker driver based on existing profile
+* Starting control plane node minikube in cluster minikube
+* Pulling base image ...
+* Restarting existing docker container for "minikube" ...
+* Preparing Kubernetes v1.24.1 on Docker 20.10.17 ...
+* Verifying Kubernetes components...
+  - Using image gcr.io/k8s-minikube/storage-provisioner:v5
+* Enabled addons: default-storageclass
+
+! C:\Program Files\Docker\Docker\resources\bin\kubectl.exe is version 1.22.5, which may have incompatibilites with Kubernetes 1.24.1.
+  - Want kubectl v1.24.1? Try 'minikube kubectl -- get pods -A'
+* Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+
+C:\Users\00112>minikube status
+minikube
+type: Control Plane
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
+
+
+C:\Users\00112>kubectl cluster-info
+Kubernetes control plane is running at https://127.0.0.1:53189
+CoreDNS is running at https://127.0.0.1:53189/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+
+C:\Users\00112>kubectl get node
+NAME       STATUS   ROLES           AGE    VERSION
+minikube   Ready    control-plane   106d   v1.24.1
+
+C:\Users\00112>minikube docker-env
+SET DOCKER_TLS_VERIFY=1
+SET DOCKER_HOST=tcp://127.0.0.1:53191
+SET DOCKER_CERT_PATH=C:\Users\00112\.minikube\certs
+SET MINIKUBE_ACTIVE_DOCKERD=minikube
+REM To point your shell to minikube's docker-daemon, run:
+REM @FOR /f "tokens=*" %i IN ('minikube -p minikube docker-env --shell cmd') DO @%i
+
+C:\Users\00112>@FOR /f "tokens=*" %i IN ('minikube -p minikube docker-env --shell cmd') DO @%i
+
+C:\Users\00112>docker images
+REPOSITORY                                TAG       IMAGE ID       CREATED         SIZE
+0011223344ravi/spring-boot-docker.jar     latest    f242eb914e75   3 months ago    544MB
+k8s.gcr.io/kube-apiserver                 v1.24.1   e9f4b425f919   4 months ago    130MB
+k8s.gcr.io/kube-scheduler                 v1.24.1   18688a72645c   4 months ago    51MB
+k8s.gcr.io/kube-proxy                     v1.24.1   beb86f5d8e6c   4 months ago    110MB
+k8s.gcr.io/kube-controller-manager        v1.24.1   b4ea7e648530   4 months ago    119MB
+k8s.gcr.io/etcd                           3.5.3-0   aebe758cef4c   6 months ago    299MB
+k8s.gcr.io/pause                          3.7       221177c6082a   7 months ago    711kB
+k8s.gcr.io/coredns/coredns                v1.8.6    a4ca41631cc7   12 months ago   46.8MB
+k8s.gcr.io/pause                          3.6       6270bb605e12   13 months ago   683kB
+gcr.io/k8s-minikube/storage-provisioner   v5        6e38f40d628d   18 months ago   31.5MB
+
+C:\Users\00112>cd C:\Projects\kubernets\SpringK8s>
+The syntax of the command is incorrect.
+
+C:\Users\00112>cd  ..
+
+C:\Users>cd..
+
+C:\>cd Projects
+
+C:\Projects>cd kubernets
+
+C:\Projects\kubernets>cd SpringK8s
+
+C:\Projects\kubernets\SpringK8s>docker build -t springboot-k8s-demo:1.0
+"docker build" requires exactly 1 argument.
+See 'docker build --help'.
+
+Usage:  docker build [OPTIONS] PATH | URL | -
+
+Build an image from a Dockerfile
+
+C:\Projects\kubernets\SpringK8s>docker build -t springboot-k8s-demo:1.0 .
+Sending build context to Docker daemon  330.2kB
+Step 1/4 : FROM openjdk:8
+8: Pulling from library/openjdk
+001c52e26ad5: Pull complete
+d9d4b9b6e964: Pull complete
+2068746827ec: Pull complete
+9daef329d350: Pull complete
+d85151f15b66: Pull complete
+52a8c426d30b: Pull complete
+8754a66e0050: Pull complete
+Digest: sha256:86e863cc57215cfb181bd319736d0baf625fe8f150577f9eb58bd937f5452cb8
+Status: Downloaded newer image for openjdk:8
+ ---> b273004037cc
+Step 2/4 : EXPOSE 8080
+ ---> Running in e3096b0cf152
+Removing intermediate container e3096b0cf152
+ ---> 84cbbceb3918
+Step 3/4 : ADD target/springboot-k8s-demo.jar springboot-k8s-demo.jar
+ADD failed: file not found in build context or excluded by .dockerignore: stat target/springboot-k8s-demo.jar: file does not exist
+
+C:\Projects\kubernets\SpringK8s>docker images
+REPOSITORY                                TAG       IMAGE ID       CREATED              SIZE
+<none>                                    <none>    84cbbceb3918   About a minute ago   526MB
+openjdk                                   8         b273004037cc   2 months ago         526MB
+0011223344ravi/spring-boot-docker.jar     latest    f242eb914e75   3 months ago         544MB
+k8s.gcr.io/kube-apiserver                 v1.24.1   e9f4b425f919   4 months ago         130MB
+k8s.gcr.io/kube-controller-manager        v1.24.1   b4ea7e648530   4 months ago         119MB
+k8s.gcr.io/kube-scheduler                 v1.24.1   18688a72645c   4 months ago         51MB
+k8s.gcr.io/kube-proxy                     v1.24.1   beb86f5d8e6c   4 months ago         110MB
+k8s.gcr.io/etcd                           3.5.3-0   aebe758cef4c   6 months ago         299MB
+k8s.gcr.io/pause                          3.7       221177c6082a   7 months ago         711kB
+k8s.gcr.io/coredns/coredns                v1.8.6    a4ca41631cc7   12 months ago        46.8MB
+k8s.gcr.io/pause                          3.6       6270bb605e12   13 months ago        683kB
+gcr.io/k8s-minikube/storage-provisioner   v5        6e38f40d628d   18 months ago        31.5MB
+
+C:\Projects\kubernets\SpringK8s>docker images
+REPOSITORY                                TAG       IMAGE ID       CREATED              SIZE
+<none>                                    <none>    84cbbceb3918   About a minute ago   526MB
+openjdk                                   8         b273004037cc   2 months ago         526MB
+0011223344ravi/spring-boot-docker.jar     latest    f242eb914e75   3 months ago         544MB
+k8s.gcr.io/kube-apiserver                 v1.24.1   e9f4b425f919   4 months ago         130MB
+k8s.gcr.io/kube-proxy                     v1.24.1   beb86f5d8e6c   4 months ago         110MB
+k8s.gcr.io/kube-scheduler                 v1.24.1   18688a72645c   4 months ago         51MB
+k8s.gcr.io/kube-controller-manager        v1.24.1   b4ea7e648530   4 months ago         119MB
+k8s.gcr.io/etcd                           3.5.3-0   aebe758cef4c   6 months ago         299MB
+k8s.gcr.io/pause                          3.7       221177c6082a   7 months ago         711kB
+k8s.gcr.io/coredns/coredns                v1.8.6    a4ca41631cc7   12 months ago        46.8MB
+k8s.gcr.io/pause                          3.6       6270bb605e12   13 months ago        683kB
+gcr.io/k8s-minikube/storage-provisioner   v5        6e38f40d628d   18 months ago        31.5MB
+
+C:\Projects\kubernets\SpringK8s>docker build -t springboot-k8s-demo:1.0 .
+Sending build context to Docker daemon  18.01MB
+Step 1/4 : FROM openjdk:8
+ ---> b273004037cc
+Step 2/4 : EXPOSE 8080
+ ---> Using cache
+ ---> 84cbbceb3918
+Step 3/4 : ADD target/springboot-k8s-demo.jar springboot-k8s-demo.jar
+ ---> f76834de6dfc
+Step 4/4 : ENTRYPOINT ["java","-jar","/springboot-k8s-demo.jar"]
+ ---> Running in 780ded92e4bf
+Removing intermediate container 780ded92e4bf
+ ---> 50958fa31c07
+Successfully built 50958fa31c07
+Successfully tagged springboot-k8s-demo:1.0
+SECURITY WARNING: You are building a Docker image from Windows against a non-Windows Docker host. All files and directories added to build context will have '-rwxr-xr-x' permissions. It is recommended to double check and reset permissions for sensitive files and directories.
+
+Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
+
+C:\Projects\kubernets\SpringK8s>docker images
+REPOSITORY                                TAG       IMAGE ID       CREATED          SIZE
+springboot-k8s-demo                       1.0       50958fa31c07   11 seconds ago   544MB
+openjdk                                   8         b273004037cc   2 months ago     526MB
+0011223344ravi/spring-boot-docker.jar     latest    f242eb914e75   3 months ago     544MB
+k8s.gcr.io/kube-apiserver                 v1.24.1   e9f4b425f919   4 months ago     130MB
+k8s.gcr.io/kube-controller-manager        v1.24.1   b4ea7e648530   4 months ago     119MB
+k8s.gcr.io/kube-proxy                     v1.24.1   beb86f5d8e6c   4 months ago     110MB
+k8s.gcr.io/kube-scheduler                 v1.24.1   18688a72645c   4 months ago     51MB
+k8s.gcr.io/etcd                           3.5.3-0   aebe758cef4c   6 months ago     299MB
+k8s.gcr.io/pause                          3.7       221177c6082a   7 months ago     711kB
+k8s.gcr.io/coredns/coredns                v1.8.6    a4ca41631cc7   12 months ago    46.8MB
+k8s.gcr.io/pause                          3.6       6270bb605e12   13 months ago    683kB
+gcr.io/k8s-minikube/storage-provisioner   v5        6e38f40d628d   18 months ago    31.5MB
+
+C:\Projects\kubernets\SpringK8s>kubectl create deployment spring-boot-k8s --image=springboot-k8s-demo:1.0 --port=8080
+deployment.apps/spring-boot-k8s created
+
+C:\Projects\kubernets\SpringK8s>kubectl get deployment
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+spring-boot-k8s    1/1     1            1           28s
+spring-boot-k8s1   2/2     2            2           65d
+
+C:\Projects\kubernets\SpringK8s>kubectl describe deployment spring-boot-k8s
+Name:                   spring-boot-k8s
+Namespace:              default
+CreationTimestamp:      Thu, 13 Oct 2022 01:27:41 +0530
+Labels:                 app=spring-boot-k8s
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               app=spring-boot-k8s
+Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=spring-boot-k8s
+  Containers:
+   springboot-k8s-demo:
+    Image:        springboot-k8s-demo:1.0
+    Port:         8080/TCP
+    Host Port:    0/TCP
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   spring-boot-k8s-8689dc9df5 (1/1 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  78s   deployment-controller  Scaled up replica set spring-boot-k8s-8689dc9df5 to 1
+
+C:\Projects\kubernets\SpringK8s>kubectl get pods
+NAME                               READY   STATUS    RESTARTS      AGE
+spring-boot-k8s-8689dc9df5-2gsjl   1/1     Running   0             2m2s
+spring-boot-k8s1-758fff5db-trq44   1/1     Running   1 (20m ago)   65d
+spring-boot-k8s1-758fff5db-vpm98   1/1     Running   1 (20m ago)   65d
+
+C:\Projects\kubernets\SpringK8s>kubetcl logs spring-boot-k8s-8689dc9df5-2gsjl
+'kubetcl' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Projects\kubernets\SpringK8s>kubectl logs spring-boot-k8s-8689dc9df5-2gsjl
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.7.4)
+
+2022-10-12 19:57:43.512  INFO 1 --- [           main] c.e.springk8s.SpringK8sApplication       : Starting SpringK8sApplication v0.0.1-SNAPSHOT using Java 1.8.0_342 on spring-boot-k8s-8689dc9df5-2gsjl with PID 1 (/springboot-k8s-demo.jar started by root in /)
+2022-10-12 19:57:43.514  INFO 1 --- [           main] c.e.springk8s.SpringK8sApplication       : No active profile set, falling back to 1 default profile: "default"
+2022-10-12 19:57:44.882  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-10-12 19:57:44.896  INFO 1 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-10-12 19:57:44.897  INFO 1 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-10-12 19:57:44.998  INFO 1 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-10-12 19:57:44.998  INFO 1 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1411 ms
+2022-10-12 19:57:46.126  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-10-12 19:57:46.136  INFO 1 --- [           main] c.e.springk8s.SpringK8sApplication       : Started SpringK8sApplication in 3.225 seconds (JVM running for 3.609)
+
+C:\Projects\kubernets\SpringK8s>kubectl get deployments
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+spring-boot-k8s    1/1     1            1           3m58s
+spring-boot-k8s1   2/2     2            2           65d
+
+C:\Projects\kubernets\SpringK8s>kubectl expose deployment spring-boot-k8s --type=NodePort
+service/spring-boot-k8s exposed
+
+C:\Projects\kubernets\SpringK8s>kubectl get service
+NAME              TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+kubernetes        ClusterIP   10.96.0.1        <none>        443/TCP          106d
+spring-boot-k8s   NodePort    10.106.237.139   <none>        8080:31281/TCP   21s
+
+C:\Projects\kubernets\SpringK8s>minikube service spring-boot-k8s --url
+http://127.0.0.1:56331
+! Because you are using a Docker driver on windows, the terminal needs to be open to run it.
+
+C:\Projects\kubernets\SpringK8s>minikube dashboard
+* Enabling dashboard ...
+  - Using image kubernetesui/metrics-scraper:v1.0.8
+  - Using image kubernetesui/dashboard:v2.6.0
+* Verifying dashboard health ...
+* Launching proxy ...
+* Verifying proxy health ...
+* Opening http://127.0.0.1:57953/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/ in your default browser...
+^C
+C:\Projects\kubernets\SpringK8s>kubectl delete service spring-boot-k8s
+service "spring-boot-k8s" deleted
+
+C:\Projects\kubernets\SpringK8s>kubectl delete deployment spring-boot-k8s
+deployment.apps "spring-boot-k8s" deleted
+
+C:\Projects\kubernets\SpringK8s>kubectl get pods
+NAME                               READY   STATUS    RESTARTS      AGE
+spring-boot-k8s1-758fff5db-trq44   1/1     Running   1 (46m ago)   65d
+spring-boot-k8s1-758fff5db-vpm98   1/1     Running   1 (46m ago)   65d
+
+C:\Projects\kubernets\SpringK8s>minikube stop
+* Stopping node "minikube"  ...
+* Powering off "minikube" via SSH ...
+* 1 node stopped.
+
+C:\Projects\kubernets\SpringK8s>kubectl get nodes
+Unable to connect to the server: dial tcp [::1]:8080: connectex: No connection could be made because the target machine actively refused it.
+
+C:\Projects\kubernets\SpringK8s>minikube delete
+* Deleting "minikube" in docker ...
+* Deleting container "minikube" ...
+* Removing C:\Users\00112\.minikube\machines\minikube ...
+* Removed all traces of the "minikube" cluster.
+
+C:\Projects\kubernets\SpringK8s>
